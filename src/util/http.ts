@@ -6,14 +6,12 @@ import {
   type source,
 } from "../store/newsStore";
 
-const API_KEY:string = import.meta.env.VITE_NEWS_API_KEY;
+const BASE_URL = "http://localhost:5000/api";
 
 export const queryClient = new QueryClient();
 
 async function getTop20SourcesAsParamString(): Promise<string> {
-  const resp = await fetch(
-    `https://newsapi.org/v2/sources?apiKey=${API_KEY}`
-  );
+  const resp = await fetch(`${BASE_URL}/sources`);
 
   if (!resp.ok) {
     const error = new Error("Error while getting top 20 sources");
@@ -21,8 +19,7 @@ async function getTop20SourcesAsParamString(): Promise<string> {
   }
 
   const respObj = await resp.json();
-  const sourcesArray = respObj.sources.slice(0, 20);
-  const sourcesIdsString: string = sourcesArray.reduce(
+  const sourcesIdsString: string = respObj.reduce(
     (acc: string, cur: source) => acc + (cur.id + ","),
     ""
   );
@@ -32,7 +29,7 @@ async function getTop20SourcesAsParamString(): Promise<string> {
 export async function getMainNews() {
   const sourcesStr = await getTop20SourcesAsParamString();
   const resp = await fetch(
-    `https://newsapi.org/v2/everything?sources=${sourcesStr}&pageSize=20&language=en&apiKey=${API_KEY}`
+    `${BASE_URL}/news?everything=true&sources=${sourcesStr}&pageSize=20`
   );
 
   if (!resp.ok) {
@@ -53,7 +50,7 @@ export async function getMainNews() {
 
 export async function getNewsByCategory(category: string, signal: AbortSignal) {
   const resp = await fetch(
-    `https://newsapi.org/v2/top-headlines?category=${category}&pageSize=20&language=en&apiKey=${API_KEY}`,
+    `${BASE_URL}/news?category=${category}&pageSize=20`,
     { signal }
   );
 
@@ -75,7 +72,7 @@ export async function getNewsByCategory(category: string, signal: AbortSignal) {
 
 export async function getNewsByKey(key: string) {
   const resp = await fetch(
-    `https://newsapi.org/v2/everything?q=${key}&pageSize=20&language=en&apiKey=${API_KEY}`
+    `${BASE_URL}/news?everything=true&q=${key}&pageSize=20`
   );
 
   if (!resp.ok) {
