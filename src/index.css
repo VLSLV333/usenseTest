@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  padding: 0;
+  background-color: rgba(20, 20, 20, 1);
+  color: rgba(222, 222, 222, 1);
+}
