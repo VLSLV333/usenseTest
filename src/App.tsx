@@ -11,43 +11,48 @@ import NewsByCategory from "./pages/NewsByCategory";
 import NewsByKey from "./pages/NewsByKey";
 import ArticleDetailed from "./pages/ArticleDetailed";
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <RootPage />,
+      errorElement: <ErrorPage />,
+      children: [
+        {
+          index: true,
+          element: <AllNews />,
+        },
+        {
+          path: ":id",
+          element: <ArticleDetailed />,
+        },
+        {
+          path: "category",
+          element: <SelectCategory />,
+        },
+        {
+          path: "category/:c",
+          element: <NewsByCategory />,
+        },
+        {
+          path: "category/:c/:id",
+          element: <ArticleDetailed />,
+        },
+        {
+          path: "key",
+          element: <NewsByKey />,
+        },
+        {
+          path: "key/:id",
+          element: <ArticleDetailed />,
+        },
+      ],
+    },
+  ],
   {
-    path: "/",
-    element: <RootPage />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        index: true,
-        element: <AllNews />,
-      },
-      {
-        path: ":id",
-        element: <ArticleDetailed />,
-      },
-      {
-        path: "category",
-        element: <SelectCategory />,
-      },
-      {
-        path: "category/:c",
-        element: <NewsByCategory />,
-      },
-      {
-        path: "category/:c/:id",
-        element: <ArticleDetailed />,
-      },
-      {
-        path: "key",
-        element: <NewsByKey />,
-      },
-      {
-        path: "key/:id",
-        element: <ArticleDetailed />,
-      },
-    ],
-  },
-]);
+    basename: "/usenseTest",
+  }
+);
 
 function App() {
   return (
