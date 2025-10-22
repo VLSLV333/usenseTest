@@ -35,16 +35,8 @@ const router = createBrowserRouter(
           element: <NewsByCategory />,
         },
         {
-          path: "category/:c/:id",
-          element: <ArticleDetailed />,
-        },
-        {
           path: "key",
           element: <NewsByKey />,
-        },
-        {
-          path: "key/:id",
-          element: <ArticleDetailed />,
         },
       ],
     },
