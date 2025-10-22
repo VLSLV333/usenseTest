@@ -6,7 +6,8 @@ import {
   type source,
 } from "../store/newsStore";
 
-const BASE_URL = "http://localhost:5000/api";
+// const BASE_URL = "http://localhost:5000/api"; 
+const BASE_URL = "https://132cc3054d54.ngrok-free.app/api"; 
 
 export const queryClient = new QueryClient();
 
