@@ -7,7 +7,8 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   base: "/usenseTest/",
   build: {
-    target: "es2015", 
-    minify: "esbuild", 
+    target: "es2015",
+    minify: "esbuild",
+    sourcemap: false,
   },
 });

@@ -6,13 +6,15 @@ import {
   type source,
 } from "../store/newsStore";
 
-// const BASE_URL = "http://localhost:5000/api"; 
-const BASE_URL = "https://132cc3054d54.ngrok-free.app/api"; 
+// const BASE_URL = "http://localhost:5000/api";
+const BASE_URL = "https://ef005fb2d2b1.ngrok-free.app/api";
 
 export const queryClient = new QueryClient();
 
 async function getTop20SourcesAsParamString(): Promise<string> {
-  const resp = await fetch(`${BASE_URL}/sources`);
+  const resp = await fetch(`${BASE_URL}/sources`, {
+    headers: { "ngrok-skip-browser-warning": "1" },
+  });
 
   if (!resp.ok) {
     const error = new Error("Error while getting top 20 sources");
@@ -30,7 +32,8 @@ async function getTop20SourcesAsParamString(): Promise<string> {
 export async function getMainNews() {
   const sourcesStr = await getTop20SourcesAsParamString();
   const resp = await fetch(
-    `${BASE_URL}/news?everything=true&sources=${sourcesStr}&pageSize=20`
+    `${BASE_URL}/news?everything=true&sources=${sourcesStr}&pageSize=20`,
+    { headers: { "ngrok-skip-browser-warning": "1" } }
   );
 
   if (!resp.ok) {
@@ -52,7 +55,7 @@ export async function getMainNews() {
 export async function getNewsByCategory(category: string, signal: AbortSignal) {
   const resp = await fetch(
     `${BASE_URL}/news?category=${category}&pageSize=20`,
-    { signal }
+    { signal, headers: { "ngrok-skip-browser-warning": "1" } }
   );
 
   if (!resp.ok) {
@@ -73,7 +76,8 @@ export async function getNewsByCategory(category: string, signal: AbortSignal) {
 
 export async function getNewsByKey(key: string) {
   const resp = await fetch(
-    `${BASE_URL}/news?everything=true&q=${key}&pageSize=20`
+    `${BASE_URL}/news?everything=true&q=${key}&pageSize=20`,
+    { headers: { "ngrok-skip-browser-warning": "1" } }
   );
 
   if (!resp.ok) {
